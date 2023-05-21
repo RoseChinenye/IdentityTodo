@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IdentityTodo.Data;
 
-public class ApplicationDbContext : IdentityDbContext
+public class ApplicationDbContext : IdentityTodoDbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)

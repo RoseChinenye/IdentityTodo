@@ -1,8 +1,9 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using IdentityTodo.Data;
 using IdentityTodo.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,14 @@ builder.Services.AddDefaultIdentity<IdentityUser>(opts =>
     opts.Password.RequireNonAlphanumeric = false;
     opts.SignIn.RequireConfirmedAccount = true;
 }).AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddAuthentication()
+ .AddFacebook(opts =>
+ {
+     opts.AppId = builder.Configuration["Facebook:AppId"];
+     opts.AppSecret = builder.Configuration["Facebook:AppSecret"];
+ });
+
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
